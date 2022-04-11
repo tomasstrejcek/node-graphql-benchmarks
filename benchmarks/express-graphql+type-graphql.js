@@ -1,21 +1,21 @@
-"use strict";
+'use strict'
 
-const { graphqlHTTP } = require("express-graphql");
-const { graphqlUploadExpress } = require("graphql-upload");
-const express = require("express");
+const { graphqlHTTP } = require('express-graphql')
+const { graphqlUploadExpress } = require('graphql-upload')
+const express = require('express')
 
 const {
-  createTypeGraphQLSchema,
-} = require("../lib/schemas/createTypeGraphQLSchema");
+  createTypeGraphQLSchema
+} = require('../lib/schemas/createTypeGraphQLSchema')
 
-const app = express();
+const app = express()
 createTypeGraphQLSchema().then((schema) => {
   app.use(
-    "/graphql",
+    '/graphql',
     graphqlUploadExpress(),
     graphqlHTTP({
-      schema,
-    }),
-  );
-  app.listen(4001);
-});
+      schema
+    })
+  )
+  app.listen(4001)
+})

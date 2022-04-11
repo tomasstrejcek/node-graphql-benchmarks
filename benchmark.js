@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const program = require("commander");
+const program = require('commander')
 
 program
-  .command("bench", "Benchmark one, multiple or all modules.", {
-    isDefault: true,
+  .command('bench', 'Benchmark one, multiple or all modules.', {
+    isDefault: true
   })
-  .command("compare", "Compare results by module.")
-  .parse(process.argv);
+  .command('compare', 'Compare results by module.')
+  .parse(process.argv)

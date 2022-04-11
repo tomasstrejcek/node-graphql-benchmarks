@@ -1,16 +1,16 @@
-"use strict";
+'use strict'
 
-const Koa = require("koa");
-const bodyParser = require("koa-bodyparser");
-const { errorHandler, execute } = require("graphql-api-koa");
-const { graphqlUploadKoa } = require("graphql-upload");
-const { parse } = require("graphql");
-const { compileQuery } = require("graphql-jit");
-const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+const Koa = require('koa')
+const bodyParser = require('koa-bodyparser')
+const { errorHandler, execute } = require('graphql-api-koa')
+const { graphqlUploadKoa } = require('graphql-upload')
+const { parse } = require('graphql')
+const { compileQuery } = require('graphql-jit')
+const { createApolloSchema } = require('../lib/schemas/createApolloSchema')
 
-const schema = createApolloSchema();
+const schema = createApolloSchema()
 
-const cache = {};
+const cache = {}
 
 const app = new Koa()
   .use(errorHandler())
@@ -21,17 +21,17 @@ const app = new Koa()
       schema,
       override: ({
         request: {
-          body: { query },
-        },
+          body: { query }
+        }
       }) => ({
-        execute({ rootValue, contextValue, variableValues }) {
+        execute ({ rootValue, contextValue, variableValues }) {
           if (!(query in cache)) {
-            cache[query] = compileQuery(schema, parse(query));
+            cache[query] = compileQuery(schema, parse(query))
           }
-          return cache[query].query(rootValue, contextValue, variableValues);
-        },
-      }),
-    }),
-  );
+          return cache[query].query(rootValue, contextValue, variableValues)
+        }
+      })
+    })
+  )
 
-app.listen(4001);
+app.listen(4001)

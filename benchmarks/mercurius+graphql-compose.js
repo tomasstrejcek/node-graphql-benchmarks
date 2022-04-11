@@ -1,17 +1,17 @@
-"use strict";
+'use strict'
 
-const Fastify = require("fastify");
-const mercurius = require("mercurius");
+const Fastify = require('fastify')
+const mercurius = require('mercurius')
 const {
-  createGraphqlComposeSchema,
-} = require("../lib/schemas/createGraphqlCompose");
+  createGraphqlComposeSchema
+} = require('../lib/schemas/createGraphqlCompose')
 
-const schema = createGraphqlComposeSchema();
+const schema = createGraphqlComposeSchema()
 
-const app = Fastify();
+const app = Fastify()
 
 app.register(mercurius, {
-  schema,
-});
+  schema
+})
 
-app.listen(4001);
+app.listen(4001)

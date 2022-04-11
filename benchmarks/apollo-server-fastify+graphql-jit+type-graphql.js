@@ -1,14 +1,10 @@
 'use strict'
 
-const { ApolloServer } = require('apollo-server-koa')
-const Koa = require('koa')
+const { createAsyncTypeGraphQLSchema } = require('../lib/schemas/createTypeGraphQLSchema')
+const { ApolloServer } = require('apollo-server-fastify')
 const { parse } = require('graphql')
 const { compileQuery } = require('graphql-jit')
-const {
-  createAsyncTypeGraphQLSchema
-} = require('../lib/schemas/createTypeGraphQLSchema')
-
-const app = new Koa()
+const app = require('fastify')()
 
 const cache = {}
 
@@ -24,8 +20,8 @@ createAsyncTypeGraphQLSchema().then((schema) => {
       return cache[source].query({}, context, {})
     }
   })
-  return server.start().then(() => {
-    server.applyMiddleware({ app })
+  server.start().then(() => {
+    app.register(server.createHandler())
     app.listen(4001)
   })
 })

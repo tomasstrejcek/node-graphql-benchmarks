@@ -1,13 +1,15 @@
-"use strict";
+'use strict'
 
-const { ApolloServer } = require("apollo-server-express");
-const express = require("express");
-const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+const { ApolloServer } = require('apollo-server-express')
+const express = require('express')
+const { createApolloSchema } = require('../lib/schemas/createApolloSchema')
 
-const app = express();
-const schema = createApolloSchema();
+const app = express()
+const schema = createApolloSchema()
 const server = new ApolloServer({
-  schema,
-});
-server.applyMiddleware({ app });
-app.listen(4001);
+  schema
+})
+server.start().then(() => {
+  server.applyMiddleware({ app })
+  app.listen(4001)
+})

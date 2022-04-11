@@ -1,15 +1,15 @@
-"use strict";
+'use strict'
 
-const Fastify = require("fastify");
-const mercurius = require("mercurius");
-const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+const Fastify = require('fastify')
+const mercurius = require('mercurius')
+const { createApolloSchema } = require('../lib/schemas/createApolloSchema')
 
-const schema = createApolloSchema();
+const schema = createApolloSchema()
 
-const app = Fastify();
+const app = Fastify()
 
 app.register(mercurius, {
-  schema,
-});
+  schema
+})
 
-app.listen(4001);
+app.listen(4001)

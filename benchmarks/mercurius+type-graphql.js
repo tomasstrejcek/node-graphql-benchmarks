@@ -10,8 +10,7 @@ const app = Fastify()
 
 createAsyncTypeGraphQLSchema().then((schema) => {
   app.register(mercurius, {
-    schema,
-    jit: 1
+    schema
   })
   app.listen(4001)
 })

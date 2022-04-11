@@ -1,32 +1,32 @@
-"use strict";
+'use strict'
 
-const { createServer } = require("http");
+const { createServer } = require('http')
 
-const { parse } = require("graphql");
-const { compileQuery } = require("graphql-jit");
+const { parse } = require('graphql')
+const { compileQuery } = require('graphql-jit')
 
-const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+const { createApolloSchema } = require('../lib/schemas/createApolloSchema')
 
-const schema = createApolloSchema();
+const schema = createApolloSchema()
 
-const cache = {};
+const cache = {}
 
 const server = createServer((req, res) => {
-  const chunks = [];
+  const chunks = []
 
-  req.on("data", (chunk) => {
-    chunks.push(chunk);
-  });
+  req.on('data', (chunk) => {
+    chunks.push(chunk)
+  })
 
-  req.on("end", async () => {
-    const { query } = JSON.parse(Buffer.concat(chunks).toString());
+  req.on('end', async () => {
+    const { query } = JSON.parse(Buffer.concat(chunks).toString())
 
-    cache[query] = cache[query] || compileQuery(schema, parse(query));
+    cache[query] = cache[query] || compileQuery(schema, parse(query))
 
-    const result = await cache[query].query();
+    const result = await cache[query].query()
 
-    res.end(JSON.stringify(result));
-  });
-});
+    res.end(JSON.stringify(result))
+  })
+})
 
-server.listen(4001);
+server.listen(4001)
